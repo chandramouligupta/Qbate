@@ -1,6 +1,7 @@
 package com.qbate;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -17,11 +18,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class MainActivity extends AppCompatActivity {
 
     public static Context mainActivityContext;
+    public static int counter = 1;
 
     private CategoryListAdapter categoryListAdapter;
     private ArrayList<CategoryItem> categoryItemsList;
@@ -39,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
             categoryItemsList.add(new CategoryItem(Integer.parseInt(result.getString(0)),
                     result.getString(1)));
         }*/
-
         categoryItemsList = new ArrayList<CategoryItem>();
         getCategoryData();
         Log.d("testing","List Size:" + categoryItemsList.size());
@@ -55,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
+                if(categoryItemsList != null)
+                    categoryItemsList.clear();
                 for(DataSnapshot postSnapShot:dataSnapshot.getChildren()){
                     int categoryId = Integer.parseInt(postSnapShot.child("category_id").getValue().toString());
                     String categoryName = postSnapShot.child("category_name").getValue().toString();
@@ -64,11 +68,18 @@ public class MainActivity extends AppCompatActivity {
                 categoryListAdapter = new CategoryListAdapter(mainActivityContext,categoryItemsList);
                 listView.setAdapter(categoryListAdapter);
                 Log.d("testing", "Value is: " + dataSnapshot.toString());
-
+                /*  for creating Dummy Data
+                DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+                for(CategoryItem ci:categoryItemsList){
+                    TestTopicTableCreatorFirebase.creatingTopicsTable(ci.getCategoryId(),ci.getCategoryName(),dbRef);
+                } */
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        
+                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                        Intent intent = new Intent(MainActivity.mainActivityContext,TopicsDisplay.class);
+                        intent.putExtra("categoryId","" + categoryItemsList.get(position).getCategoryId());
+                        intent.putExtra("categoryName","" + categoryItemsList.get(position).getCategoryName());
+                        mainActivityContext.startActivity(intent);
                     }
                 });
             }
@@ -80,4 +91,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 }

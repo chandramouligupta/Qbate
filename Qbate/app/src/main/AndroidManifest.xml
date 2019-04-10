@@ -12,6 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".TopicItem"></activity>
+        <activity android:name=".TopicsDisplay" />
         <activity android:name=".CategoryItem" />
         <activity android:name=".Splash">
             <intent-filter>
@@ -22,11 +24,6 @@
         </activity>
         <activity android:name=".FirebaseLogin" />
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

@@ -40,9 +40,8 @@ public class CategoryListAdapter extends BaseAdapter {
 
         //setting data to the list
 
-        categoryItem.setText("Category ID:" + categoryItemsList.get(position).getCategoryId()
-                       + " Category Name:" + categoryItemsList.get(position).getCategoryName());
-
+        categoryItem.setText("ID:" + categoryItemsList.get(position).getCategoryId()
+                       + "    " + categoryItemsList.get(position).getCategoryName());
 
         //saving product id to the tag
 

@@ -7,6 +7,7 @@
 
     <string name="facebook_app_id">584854335366898</string>
     <string name="fb_login_protocol_scheme">fb584854335366898</string>
+    <string name="title_activity_topic_item">TopicItem</string>
 
     <!--    <string name="DATABASE_NAME">AppLocal.db</string>
     <string name="TABLE_NAME">local_category</string>

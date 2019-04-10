@@ -7,12 +7,6 @@ public class CategoryItem extends AppCompatActivity {
 
     private int categoryId;
     private String categoryName;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.category_item);
-    }
-
 
     public CategoryItem(int categoryId, String categoryName) {
         this.categoryId = categoryId;

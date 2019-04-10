@@ -77,7 +77,7 @@ public class FirebaseLogin extends AppCompatActivity {
         if(account != null){
             Toast.makeText(this,"Sign In to google Account " + account.getEmail(),Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this,MainActivity.class);
-            intent.putExtra("signInObject",account);
+            intent.putExtra("signInObject",account); // in case of designing navigation drawer in future
             startActivity(intent);
             }
         }
