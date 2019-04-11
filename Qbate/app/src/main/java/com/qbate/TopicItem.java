@@ -14,6 +14,8 @@ public class TopicItem {
     private int downVotes;
     private int irrelevantCount;
 
+    public TopicItem() {
+    }
 
     public TopicItem(int topicId, int topicCategoryId, String topicTitle, long timestamp, int upVotes, int downVotes, int irrelevantCount) {
         this.topicId = topicId;
@@ -33,14 +35,13 @@ public class TopicItem {
         this.topicId = topicId;
     }
 
-    public int getTopicategoryId() {
+    public int getTopicCategoryId() {
         return topicCategoryId;
     }
 
-    public void setTopicategoryId(int topicategoryId) {
+    public void setTopicCategoryId(int topicCategoryId) {
         this.topicCategoryId = topicCategoryId;
     }
-
 
     public String getTopicTitle() {
         return topicTitle;

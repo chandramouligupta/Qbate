@@ -68,11 +68,11 @@ public class MainActivity extends AppCompatActivity {
                 categoryListAdapter = new CategoryListAdapter(mainActivityContext,categoryItemsList);
                 listView.setAdapter(categoryListAdapter);
                 Log.d("testing", "Value is: " + dataSnapshot.toString());
-                /*  for creating Dummy Data
+                /* //for creating Dummy Data
                 DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
                 for(CategoryItem ci:categoryItemsList){
                     TestTopicTableCreatorFirebase.creatingTopicsTable(ci.getCategoryId(),ci.getCategoryName(),dbRef);
-                } */
+                }*/
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
