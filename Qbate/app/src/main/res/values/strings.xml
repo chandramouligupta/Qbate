@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Qbate</string>
-    <string name="firebase_login">Firebase Login</string>
+    <string name="firebase_login">Login</string>
     <string name="sign_in_with_google">Sign in with Google</string>
     <string name="logout">logout</string>
     <string name="sign_in_with_facebook">Sign in with Facebook</string>
@@ -8,6 +8,7 @@
     <string name="facebook_app_id">584854335366898</string>
     <string name="fb_login_protocol_scheme">fb584854335366898</string>
     <string name="title_activity_topic_item">TopicItem</string>
+    <string name="enter_your_comment_here">Enter Your Comment here</string>
 
     <!--    <string name="DATABASE_NAME">AppLocal.db</string>
     <string name="TABLE_NAME">local_category</string>

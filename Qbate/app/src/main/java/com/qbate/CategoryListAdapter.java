@@ -36,12 +36,11 @@ public class CategoryListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
         View v = View.inflate(context,R.layout.category_item,null);
-        TextView categoryItem = v.findViewById(R.id.category_testing);
+        TextView categoryItem = v.findViewById(R.id.category_name);
 
         //setting data to the list
 
-        categoryItem.setText("ID:" + categoryItemsList.get(position).getCategoryId()
-                       + "\n" + categoryItemsList.get(position).getCategoryName());
+        categoryItem.setText(categoryItemsList.get(position).getCategoryName());
 
         //saving product id to the tag
 

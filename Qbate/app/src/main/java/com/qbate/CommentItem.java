@@ -2,19 +2,22 @@ package com.qbate;
 
 import java.sql.Timestamp;
 
-public class Comment {
-    private int commentId;
-    private int topicId;
-    private int categoryId;
+public class CommentItem {
+    private String commentId;
+    private String topicId;
+    private String categoryId;
     private int upvotes;
     private int downvotes;
     private int irrelevantCount;
     private String username;
     private String userId;
-    private Timestamp timestamp;
-    private StringBuffer title;
+    private long timestamp;
+    private String commentTitle;
 
-    public Comment(int commentId, int topicId, int categoryId, int upvotes, int downvotes, int irrelevantCount, String username, String userId, Timestamp timestamp, StringBuffer title) {
+    public CommentItem() {
+    }
+
+    public CommentItem(String commentId, String topicId, String categoryId, int upvotes, int downvotes, int irrelevantCount, String username, String userId, long timestamp, String commentTitle) {
         this.commentId = commentId;
         this.topicId = topicId;
         this.categoryId = categoryId;
@@ -24,30 +27,30 @@ public class Comment {
         this.username = username;
         this.userId = userId;
         this.timestamp = timestamp;
-        this.title = title;
+        this.commentTitle = commentTitle;
     }
 
-    public int getCommentId() {
+    public String getCommentId() {
         return commentId;
     }
 
-    public void setCommentId(int commentId) {
+    public void setCommentId(String commentId) {
         this.commentId = commentId;
     }
 
-    public int getTopicId() {
+    public String getTopicId() {
         return topicId;
     }
 
-    public void setTopicId(int topicId) {
+    public void setTopicId(String topicId) {
         this.topicId = topicId;
     }
 
-    public int getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(int categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -91,19 +94,19 @@ public class Comment {
         this.userId = userId;
     }
 
-    public Timestamp getTimestamp() {
+    public long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Timestamp timestamp) {
+    public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
 
-    public StringBuffer getTitle() {
-        return title;
+    public String getCommentTitle() {
+        return commentTitle;
     }
 
-    public void setTitle(StringBuffer title) {
-        this.title = title;
+    public void setCommentTitle(String commentTitle) {
+        this.commentTitle = commentTitle;
     }
 }

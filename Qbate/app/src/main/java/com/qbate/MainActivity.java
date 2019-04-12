@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 for(CategoryItem ci:categoryItemsList){
                     TestDataTableCreatorFirebase.creatingTopicsTable(ci.getCategoryId(),ci.getCategoryName());
                 }*/
+
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {

@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -46,6 +48,7 @@ public class TopicsDisplay extends AppCompatActivity {
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                topicsList.clear();
                 for(DataSnapshot item : dataSnapshot.getChildren()){
                     TopicItem ti = item.getValue(TopicItem.class);
                     topicsList.add(ti);
@@ -53,6 +56,15 @@ public class TopicsDisplay extends AppCompatActivity {
                 }
                 topicsListAdapter = new TopicListAdapter(topicDisplayContext,topicsList);
                 listView.setAdapter(topicsListAdapter);
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                        Intent intent = new Intent(topicDisplayContext,CommentDisplay.class);
+                        intent.putExtra("categoryId",categoryId);
+                        intent.putExtra("topicId",topicsList.get(position).getTopicId());
+                        startActivity(intent);
+                    }
+                });
             }
 
             @Override
