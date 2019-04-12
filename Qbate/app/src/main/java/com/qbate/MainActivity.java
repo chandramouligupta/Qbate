@@ -2,8 +2,6 @@ package com.qbate;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,7 +16,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -59,19 +56,19 @@ public class MainActivity extends AppCompatActivity {
                 // whenever data at this location is updated.
                 if(categoryItemsList != null)
                     categoryItemsList.clear();
-                for(DataSnapshot postSnapShot:dataSnapshot.getChildren()){
-                    int categoryId = Integer.parseInt(postSnapShot.child("category_id").getValue().toString());
-                    String categoryName = postSnapShot.child("category_name").getValue().toString();
-                    Log.d("testing","CategoryId:"+categoryId + " CategoryName:"+categoryName);
-                    categoryItemsList.add(new CategoryItem(categoryId,categoryName));
+                for(DataSnapshot item:dataSnapshot.getChildren()){
+                    CategoryItem ci = item.getValue(CategoryItem.class);
+                    Log.d("testing","CategoryId:"+ci.getCategoryId() + " CategoryName:"+ci.getCategoryName());
+                    categoryItemsList.add(ci);
                 }
                 categoryListAdapter = new CategoryListAdapter(mainActivityContext,categoryItemsList);
                 listView.setAdapter(categoryListAdapter);
                 Log.d("testing", "Value is: " + dataSnapshot.toString());
-                /* //for creating Dummy Data
-                DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+
+                //Database code at Firebase end ----- BE CAREFUL OTHERWISE REDUNDACY WILL OCCUR
+                /* //for Creating Testing Topics for the given category
                 for(CategoryItem ci:categoryItemsList){
-                    TestTopicTableCreatorFirebase.creatingTopicsTable(ci.getCategoryId(),ci.getCategoryName(),dbRef);
+                    TestDataTableCreatorFirebase.creatingTopicsTable(ci.getCategoryId(),ci.getCategoryName());
                 }*/
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override

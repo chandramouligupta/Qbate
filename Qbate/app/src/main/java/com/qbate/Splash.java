@@ -1,31 +1,11 @@
 package com.qbate;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.renderscript.ScriptGroup;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.util.ArrayList;
 
 
 public class Splash extends AppCompatActivity {
@@ -42,6 +22,11 @@ public class Splash extends AppCompatActivity {
         //dbHelper = new DatabaseHelper(this);
         //to download category JSON file
         splashContext = this;
+
+        //Database code at Firebase end ----- BE CAREFUL OTHERWISE REDUNDACY WILL OCCUR
+        //creating Category Table at Firebase
+        //createCategoryTable();
+
         Intent intent = new Intent(splashContext,FirebaseLogin.class);
         startActivity(intent);
 
@@ -53,6 +38,18 @@ public class Splash extends AppCompatActivity {
 
 
 
+    }
+
+    void createCategoryTable(){
+        ArrayList<String> categoryList = new ArrayList<String>();
+        categoryList.add("Politics");
+        categoryList.add("Science");
+        categoryList.add("Philosophy");
+        categoryList.add("Ethics");
+        categoryList.add("Religion");
+        categoryList.add("Technology");
+        categoryList.add("Education");
+        TestDataTableCreatorFirebase.createCategoryTable(categoryList);
     }
 
     /*

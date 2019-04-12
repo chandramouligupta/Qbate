@@ -1,14 +1,14 @@
 package com.qbate;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+public class CategoryItem{
 
-public class CategoryItem extends AppCompatActivity {
-
-    private int categoryId;
+    private String categoryId;
     private String categoryName;
 
-    public CategoryItem(int categoryId, String categoryName) {
+    public CategoryItem() {
+    }
+
+    public CategoryItem(String categoryId, String categoryName) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
     }
@@ -21,11 +21,11 @@ public class CategoryItem extends AppCompatActivity {
         this.categoryName = categoryName;
     }
 
-    public int getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(int categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
 }

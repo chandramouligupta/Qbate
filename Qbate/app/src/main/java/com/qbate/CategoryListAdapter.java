@@ -30,7 +30,7 @@ public class CategoryListAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return categoryItemsList.get(position).getCategoryId();
+        return position;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class CategoryListAdapter extends BaseAdapter {
         //setting data to the list
 
         categoryItem.setText("ID:" + categoryItemsList.get(position).getCategoryId()
-                       + "    " + categoryItemsList.get(position).getCategoryName());
+                       + "\n" + categoryItemsList.get(position).getCategoryName());
 
         //saving product id to the tag
 

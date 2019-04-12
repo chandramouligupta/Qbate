@@ -30,7 +30,7 @@ public class TopicListAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int i) {
-        return topicItemList.get(i).getTopicId();
+        return i;
     }
 
     @Override

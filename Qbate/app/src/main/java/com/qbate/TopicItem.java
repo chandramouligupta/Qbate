@@ -6,8 +6,8 @@ import android.os.Bundle;
 import java.sql.Timestamp;
 
 public class TopicItem {
-    private int topicId;
-    private int topicCategoryId;
+    private String topicId;
+    private String topicCategoryId;
     private String topicTitle;
     private long timestamp;
     private int upVotes;
@@ -17,7 +17,7 @@ public class TopicItem {
     public TopicItem() {
     }
 
-    public TopicItem(int topicId, int topicCategoryId, String topicTitle, long timestamp, int upVotes, int downVotes, int irrelevantCount) {
+    public TopicItem(String topicId, String topicCategoryId, String topicTitle, long timestamp, int upVotes, int downVotes, int irrelevantCount) {
         this.topicId = topicId;
         this.topicCategoryId = topicCategoryId;
         this.topicTitle = topicTitle;
@@ -27,19 +27,19 @@ public class TopicItem {
         this.irrelevantCount = irrelevantCount;
     }
 
-    public int getTopicId() {
+    public String getTopicId() {
         return topicId;
     }
 
-    public void setTopicId(int topicId) {
+    public void setTopicId(String topicId) {
         this.topicId = topicId;
     }
 
-    public int getTopicCategoryId() {
+    public String getTopicCategoryId() {
         return topicCategoryId;
     }
 
-    public void setTopicCategoryId(int topicCategoryId) {
+    public void setTopicCategoryId(String topicCategoryId) {
         this.topicCategoryId = topicCategoryId;
     }
 
