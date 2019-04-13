@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,6 +32,7 @@ public class TopicsDisplay extends AppCompatActivity {
     private ArrayList<TopicItem> topicsList;
     private Context topicDisplayContext;
     private TopicListAdapter topicsListAdapter;
+    private GoogleSignInAccount googleSignInAccount;
 
 
     @Override
@@ -39,6 +41,7 @@ public class TopicsDisplay extends AppCompatActivity {
         setContentView(R.layout.activity_topics_display);
         categoryId = getIntent().getStringExtra("categoryId");
         categoryName = getIntent().getStringExtra("categoryName");
+        googleSignInAccount = (GoogleSignInAccount) getIntent().getSerializableExtra("signInObject");
         listView = findViewById(R.id.topics_list);
         topicDisplayContext = this;
         topicsList = new ArrayList<TopicItem>();
@@ -62,6 +65,7 @@ public class TopicsDisplay extends AppCompatActivity {
                         Intent intent = new Intent(topicDisplayContext,CommentDisplay.class);
                         intent.putExtra("categoryId",categoryId);
                         intent.putExtra("topicId",topicsList.get(position).getTopicId());
+                        intent.putExtra("signInObject",googleSignInAccount);
                         startActivity(intent);
                     }
                 });

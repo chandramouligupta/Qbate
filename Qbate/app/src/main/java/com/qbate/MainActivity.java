@@ -2,6 +2,7 @@ package com.qbate;
 
 import android.content.Context;
 import android.content.Intent;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private CategoryListAdapter categoryListAdapter;
     private ArrayList<CategoryItem> categoryItemsList;
     private ListView listView;
+    private GoogleSignInAccount googleSignInAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mainActivityContext =this;
         listView = findViewById(R.id.category_list);
+        googleSignInAccount = (GoogleSignInAccount) getIntent().getSerializableExtra("signInObject");
 
         /*Cursor result = new DatabaseHelper(this).getCategoryTableData();
         while(result.moveToNext()){
@@ -77,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(MainActivity.mainActivityContext,TopicsDisplay.class);
                         intent.putExtra("categoryId","" + categoryItemsList.get(position).getCategoryId());
                         intent.putExtra("categoryName","" + categoryItemsList.get(position).getCategoryName());
+                        intent.putExtra("signInObject",googleSignInAccount);
                         mainActivityContext.startActivity(intent);
                     }
                 });

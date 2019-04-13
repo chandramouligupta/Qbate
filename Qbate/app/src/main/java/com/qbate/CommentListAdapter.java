@@ -1,12 +1,18 @@
 package com.qbate;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class CommentListAdapter extends BaseAdapter {
 
@@ -35,12 +41,32 @@ public class CommentListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
-        View v = View.inflate(context,R.layout.comment_item,null);
-        TextView commentItem = v.findViewById(R.id.comment_title);
-
-        //setting data to the list
-
-        commentItem.setText(commentsItemList.get(position).getCommentTitle());
+        int flag = 0;
+        String uid = commentsItemList.get(position).getUserId();
+        TextView commentTitle;
+        TextView userName;
+        TextView dateTime;
+        GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(context);
+        Log.d("testing20",googleSignInAccount.getEmail());
+        View v;
+        if(uid == googleSignInAccount.getEmail()) {
+            v = View.inflate(context, R.layout.my_message, null);
+            commentTitle = v.findViewById(R.id.my_message_body);
+            dateTime = v.findViewById(R.id.my_comment_time);
+            commentTitle.setText(commentsItemList.get(position).getCommentTitle());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.US);
+            dateTime.setText(sdf.format(commentsItemList.get(position).getTimestamp()));
+        }
+        else {
+            v = View.inflate(context, R.layout.their_message, null);
+            commentTitle = v.findViewById(R.id.their_message_body);
+            userName = v.findViewById(R.id.uname);
+            dateTime = v.findViewById(R.id.their_comment_time);
+            commentTitle.setText(commentsItemList.get(position).getCommentTitle());
+            userName.setText(commentsItemList.get(position).getUsername());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.US);
+            dateTime.setText(sdf.format(commentsItemList.get(position).getTimestamp()));
+        }
 
         //saving product id to the tag
 
