@@ -1,6 +1,7 @@
 package com.qbate;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,6 +19,7 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.gson.Gson;
 
 public class FirebaseLogin extends AppCompatActivity {
 
@@ -76,8 +78,18 @@ public class FirebaseLogin extends AppCompatActivity {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if(account != null){
             Toast.makeText(this,"Sign In to google Account " + account.getEmail(),Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(this,MainActivity.class);
-            intent.putExtra("signInObject",account); // in case of designing navigation drawer in future
+            Intent intent = new Intent(this, CategoryDisplay.class);
+            //intent.putExtra("signInObject",account); // in case of designing navigation drawer in future
+
+            //creating shared preference for GoogleSignInObject
+            SharedPreferences mPrefs = getPreferences(MODE_PRIVATE);
+            SharedPreferences.Editor prefsEditor = mPrefs.edit();
+            Gson gson = new Gson();
+            String json = gson.toJson(account);
+            prefsEditor.putString("googleSignInObject", json);
+            prefsEditor.commit();
+
+            //starting Activity
             startActivity(intent);
             }
         }
@@ -100,8 +112,18 @@ public class FirebaseLogin extends AppCompatActivity {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             Toast.makeText(this,"Sign In to google Account " + account.getEmail(),Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(this,MainActivity.class);
-            intent.putExtra("signInObject",account);
+            Intent intent = new Intent(this, CategoryDisplay.class);
+            //intent.putExtra("signInObject",account);
+
+            //creating shared preference for GoogleSignInObject
+            SharedPreferences mPrefs = getPreferences(MODE_PRIVATE);
+            SharedPreferences.Editor prefsEditor = mPrefs.edit();
+            Gson gson = new Gson();
+            String json = gson.toJson(account);
+            prefsEditor.putString("googleSignInObject", json);
+            prefsEditor.commit();
+
+            //starting activity
             startActivity(intent);
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.

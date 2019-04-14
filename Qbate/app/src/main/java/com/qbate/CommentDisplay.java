@@ -2,15 +2,18 @@ package com.qbate;
 
 import android.app.DownloadManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -20,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -29,10 +33,11 @@ public class CommentDisplay extends AppCompatActivity {
     private Context commentsDisplayContext;
     private String categoryId;
     private String topicId;
+    private String topicTitle;
     private GoogleSignInAccount googleSignInAccount;
     private ListView listView;
     private EditText editText;
-    private Button sendButton;
+    private TextView topicTextView;
     private ArrayList<CommentItem> commentsItemList;
     private CommentListAdapter commentListAdapter;
 
@@ -43,10 +48,23 @@ public class CommentDisplay extends AppCompatActivity {
         setContentView(R.layout.comment_ui_based_activity);
         topicId = getIntent().getStringExtra("topicId");
         categoryId = getIntent().getStringExtra("categoryId");
-        googleSignInAccount = (GoogleSignInAccount) getIntent().getSerializableExtra("signInObject");
+        topicTitle = getIntent().getStringExtra("topicTitle");
+
+        //googleSignInAccount = (GoogleSignInAccount) getIntent().getSerializableExtra("signInObject");
+        SharedPreferences mPrefs = getPreferences(MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = mPrefs.getString("googleSignInObject", "");
+        // Currently giving a null object
+        googleSignInAccount = gson.fromJson(json, GoogleSignInAccount.class);
+
         listView = findViewById(R.id.messages_view);
+        topicTextView = findViewById(R.id.topic_title_inside_comment_activity);
         editText = findViewById(R.id.editText);
         ImageButton ib = findViewById(R.id.send_comment);
+
+        topicTextView.setMovementMethod(new ScrollingMovementMethod());
+        topicTextView.setText(topicTitle);
+
         commentsDisplayContext = this;
         commentsItemList = new ArrayList<CommentItem>();
 

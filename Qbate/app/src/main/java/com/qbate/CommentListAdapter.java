@@ -43,13 +43,14 @@ public class CommentListAdapter extends BaseAdapter {
     public View getView(int position, View view, ViewGroup viewGroup) {
         int flag = 0;
         String uid = commentsItemList.get(position).getUserId();
+        Log.d("testing20","UID:"+uid);
         TextView commentTitle;
         TextView userName;
         TextView dateTime;
         GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(context);
         Log.d("testing20",googleSignInAccount.getEmail());
         View v;
-        if(uid == googleSignInAccount.getEmail()) {
+        if(uid.equalsIgnoreCase(googleSignInAccount.getEmail())) {
             v = View.inflate(context, R.layout.my_message, null);
             commentTitle = v.findViewById(R.id.my_message_body);
             dateTime = v.findViewById(R.id.my_comment_time);
@@ -69,7 +70,6 @@ public class CommentListAdapter extends BaseAdapter {
         }
 
         //saving product id to the tag
-
         v.setTag(commentsItemList.get(position).getCommentId());
         return v;
     }

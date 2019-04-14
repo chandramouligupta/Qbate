@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TopicsDisplay">
+    android:background="#fff"
+    tools:context=".CategoryDisplay">
+
     <android.support.v7.widget.Toolbar
-        android:id="@+id/topics_toolbar"
+        android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="#DF316E"
@@ -17,15 +19,19 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
+
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/topics_list"
-        app:layout_constraintTop_toBottomOf="@id/topics_toolbar"
+        android:id="@+id/category_list"
+        android:layout_marginTop="4sp"
+        app:layout_constraintTop_toBottomOf="@id/my_toolbar"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:dividerHeight="8sp"
+        android:dividerHeight="4sp"
         android:divider="@color/white"
+        android:focusable="true"
         />
 
 </android.support.constraint.ConstraintLayout>

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -52,7 +51,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor result = db.rawQuery("select * from " + TABLE_NAME,null);
         Log.d("testing","Cursor count:" + result.getCount());
-        Toast.makeText(MainActivity.mainActivityContext,"Count in cursor:" + result.getCount(),Toast.LENGTH_LONG).show();
+        Toast.makeText(CategoryDisplay.categoryDisplayContext,"Count in cursor:" + result.getCount(),Toast.LENGTH_LONG).show();
         return result;
     }
 }

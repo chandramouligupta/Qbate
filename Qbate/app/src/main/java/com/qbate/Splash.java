@@ -30,6 +30,7 @@ public class Splash extends AppCompatActivity {
         Intent intent = new Intent(splashContext,FirebaseLogin.class);
         startActivity(intent);
 
+
         //new getCategoryJSON().execute();
 
         /*permissionStatus = getSharedPreferences("permissionStatus", MODE_PRIVATE);
@@ -37,7 +38,7 @@ public class Splash extends AppCompatActivity {
         //Toast.makeText(this,"Permissions Over",Toast.LENGTH_LONG).show();
 
 
-
+        finish();
     }
 
     void createCategoryTable(){
@@ -59,7 +60,7 @@ public class Splash extends AppCompatActivity {
         protected void onPostExecute(Boolean aBoolean) {
             super.onPostExecute(aBoolean);
             //Intent intent = new Intent(getApplicationContext(), FirebaseLogin.class);
-            Intent intent = new Intent(splashContext,MainActivity.class);
+            Intent intent = new Intent(splashContext,CategoryDisplay.class);
             startActivity(intent);
         }
 
@@ -115,20 +116,20 @@ public class Splash extends AppCompatActivity {
      /*
     //checking internet permissions
     protected void checkAndRequestPermissions(){
-        if(ActivityCompat.checkSelfPermission(MainActivity.this,Manifest.permission.INTERNET) == PackageManager.PERMISSION_GRANTED){
+        if(ActivityCompat.checkSelfPermission(CategoryDisplay.this,Manifest.permission.INTERNET) == PackageManager.PERMISSION_GRANTED){
             //permission is granted
         }else{
             //we have to request for permissions
-            if(ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,Manifest.permission.INTERNET)){
+            if(ActivityCompat.shouldShowRequestPermissionRationale(CategoryDisplay.this,Manifest.permission.INTERNET)){
                 Toast.makeText(this,"Internet is needed to run this app!!!",Toast.LENGTH_SHORT).show();
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(CategoryDisplay.this);
                 builder.setTitle("Need Multiple Permissions");
                 builder.setMessage("This app needs Call and Location permissions.");
                 builder.setPositiveButton("Grant", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
-                        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.INTERNET}, REQUSET_INTERNET);
+                        ActivityCompat.requestPermissions(CategoryDisplay.this, new String[]{Manifest.permission.INTERNET}, REQUSET_INTERNET);
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -141,7 +142,7 @@ public class Splash extends AppCompatActivity {
             }else if (permissionStatus.getBoolean(new String[]{Manifest.permission.INTERNET}[0], false)) {
                  //Previously Permission Request was cancelled with 'Dont Ask Again',
                 // Redirect to Settings after showing Information about why you need the permission
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(CategoryDisplay.this);
                 builder.setTitle("Need Multiple Permissions");
                 builder.setMessage("This app needs Location permissions.");
                 builder.setPositiveButton("Grant", new DialogInterface.OnClickListener() {
@@ -163,7 +164,7 @@ public class Splash extends AppCompatActivity {
                 });
                 builder.show();
             }else{
-                ActivityCompat.requestPermissions(MainActivity.this,new String[] {Manifest.permission.INTERNET},REQUSET_INTERNET);
+                ActivityCompat.requestPermissions(CategoryDisplay.this,new String[] {Manifest.permission.INTERNET},REQUSET_INTERNET);
             }
             SharedPreferences.Editor editor = permissionStatus.edit();
             editor.putBoolean(new String[]{Manifest.permission.INTERNET}[0], true);
@@ -182,14 +183,14 @@ public class Splash extends AppCompatActivity {
             }else{
                 Toast.makeText(this,"Internet Permission is not granted",Toast.LENGTH_SHORT).show();
                 Log.d("Permission Status","Internet Permission not Granted");
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(CategoryDisplay.this);
                 builder.setTitle("Need Multiple Permissions");
                 builder.setMessage("This app needs Location permissions.");
                 builder.setPositiveButton("Grant", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
-                        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.INTERNET}, REQUSET_INTERNET);
+                        ActivityCompat.requestPermissions(CategoryDisplay.this, new String[]{Manifest.permission.INTERNET}, REQUSET_INTERNET);
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

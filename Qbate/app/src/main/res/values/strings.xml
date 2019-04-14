@@ -10,6 +10,7 @@
     <string name="title_activity_topic_item">TopicItem</string>
     <string name="comment_here">Write a message</string>
     <string name="category_name_xxx">Category Name:xxx</string>
+    <string name="topic_title">Topic Title</string>
 
     <!--    <string name="DATABASE_NAME">AppLocal.db</string>
     <string name="TABLE_NAME">local_category</string>

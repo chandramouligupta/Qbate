@@ -5,6 +5,20 @@
     android:orientation="vertical"
     android:clipToPadding="false"
     android:focusableInTouchMode="true" >
+    <TextView
+        android:id="@+id/topic_title_inside_comment_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxHeight="96sp"
+        android:background="#DF316E"
+        android:textSize="24sp"
+        android:textColor="#ECE8E8"
+        android:lines="2"
+        android:scrollbars="vertical"
+        android:scrollbarStyle="insideOverlay"
+        android:fadeScrollbars="true"
+        android:fadingEdge="vertical"
+        android:layout_marginBottom="4sp" />
 
     <ListView
         android:layout_width="match_parent"
