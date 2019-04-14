@@ -1,10 +1,12 @@
 package com.qbate;
 
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -59,11 +61,15 @@ public class CommentListAdapter extends BaseAdapter {
             dateTime.setText(sdf.format(commentsItemList.get(position).getTimestamp()));
         }
         else {
+            ImageView avatar;
             v = View.inflate(context, R.layout.their_message, null);
             commentTitle = v.findViewById(R.id.their_message_body);
             userName = v.findViewById(R.id.uname);
+            avatar = v.findViewById(R.id.avatar);
             dateTime = v.findViewById(R.id.their_comment_time);
             commentTitle.setText(commentsItemList.get(position).getCommentTitle());
+            if(commentsItemList.get(position).getPhotoUrl() != null)
+                avatar.setImageURI(Uri.parse(commentsItemList.get(position).getPhotoUrl()));
             userName.setText(commentsItemList.get(position).getUsername());
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.US);
             dateTime.setText(sdf.format(commentsItemList.get(position).getTimestamp()));

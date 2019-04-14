@@ -62,9 +62,10 @@ public class TestDataTableCreatorFirebase {
             String username = "testing";
             String userId = "testing";
             long timestamp = Calendar.getInstance().getTimeInMillis();
+            String photoUrl = null;
             String commentTitle = "Comment " + i;
             CommentItem ci = new CommentItem(commentId,topicId,categoryId,upvotes,downvotes,
-                        irrelevantCount,username,userId,timestamp,commentTitle);
+                        irrelevantCount,username,userId,timestamp,photoUrl,commentTitle);
             dbRef.child(commentId).setValue(ci);
         }
     }

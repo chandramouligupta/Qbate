@@ -12,12 +12,13 @@ public class CommentItem {
     private String username;
     private String userId;
     private long timestamp;
+    private String photoUrl;
     private String commentTitle;
 
     public CommentItem() {
     }
 
-    public CommentItem(String commentId, String topicId, String categoryId, int upvotes, int downvotes, int irrelevantCount, String username, String userId, long timestamp, String commentTitle) {
+    public CommentItem(String commentId, String topicId, String categoryId, int upvotes, int downvotes, int irrelevantCount, String username, String userId, long timestamp, String photoUrl, String commentTitle) {
         this.commentId = commentId;
         this.topicId = topicId;
         this.categoryId = categoryId;
@@ -27,6 +28,7 @@ public class CommentItem {
         this.username = username;
         this.userId = userId;
         this.timestamp = timestamp;
+        this.photoUrl = photoUrl;
         this.commentTitle = commentTitle;
     }
 
@@ -108,5 +110,13 @@ public class CommentItem {
 
     public void setCommentTitle(String commentTitle) {
         this.commentTitle = commentTitle;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 }

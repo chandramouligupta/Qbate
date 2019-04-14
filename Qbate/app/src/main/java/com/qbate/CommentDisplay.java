@@ -3,6 +3,7 @@ package com.qbate;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -94,8 +95,12 @@ public class CommentDisplay extends AppCompatActivity {
                     String username = GoogleSignIn.getLastSignedInAccount(commentsDisplayContext).getDisplayName();
                     String userId =  GoogleSignIn.getLastSignedInAccount(commentsDisplayContext).getEmail();
                     long timestamp = Calendar.getInstance().getTimeInMillis();
+                    Uri url = GoogleSignIn.getLastSignedInAccount(commentsDisplayContext).getPhotoUrl();
+                    String myPhoto = null;
+                    if(url != null)
+                        myPhoto = url.toString();
                     CommentItem ci = new CommentItem(commentId,topicId,categoryId,upvotes,
-                            downvotes,irrelevantCount,username,userId,timestamp,commentTitle);
+                            downvotes,irrelevantCount,username,userId,timestamp,myPhoto,commentTitle);
                     dbRef.child(commentId).setValue(ci);
                 }
             }
@@ -110,7 +115,7 @@ public class CommentDisplay extends AppCompatActivity {
                 commentsItemList.clear();
                 for(DataSnapshot item:dataSnapshot.getChildren()){
                     CommentItem ci = item.getValue(CommentItem.class);
-                    Log.d("testing20",ci.getCategoryId() + " " + ci.getTopicId() + " " + ci.getCommentTitle());
+                    Log.d("testing20",ci.getCategoryId() + " " + ci.getTopicId() + " " + ci.getCommentTitle() + " " + ci.getPhotoUrl());
                     commentsItemList.add(ci);
                 }
                 commentListAdapter = new CommentListAdapter(commentsDisplayContext,commentsItemList);
