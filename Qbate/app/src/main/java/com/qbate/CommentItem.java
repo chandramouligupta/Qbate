@@ -104,19 +104,19 @@ public class CommentItem {
         this.timestamp = timestamp;
     }
 
-    public String getCommentTitle() {
-        return commentTitle;
-    }
-
-    public void setCommentTitle(String commentTitle) {
-        this.commentTitle = commentTitle;
-    }
-
     public String getPhotoUrl() {
         return photoUrl;
     }
 
     public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
+    }
+
+    public String getCommentTitle() {
+        return commentTitle;
+    }
+
+    public void setCommentTitle(String commentTitle) {
+        this.commentTitle = commentTitle;
     }
 }

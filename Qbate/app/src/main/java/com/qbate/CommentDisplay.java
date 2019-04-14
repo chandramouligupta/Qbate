@@ -99,6 +99,8 @@ public class CommentDisplay extends AppCompatActivity {
                     String myPhoto = null;
                     if(url != null)
                         myPhoto = url.toString();
+                    else
+                        myPhoto = "NO_PROFILE_PIC";
                     CommentItem ci = new CommentItem(commentId,topicId,categoryId,upvotes,
                             downvotes,irrelevantCount,username,userId,timestamp,myPhoto,commentTitle);
                     dbRef.child(commentId).setValue(ci);
