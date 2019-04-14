@@ -83,7 +83,8 @@ public class CommentDisplay extends AppCompatActivity {
                 String commentTitle = editText.getText().toString();
                 editText.setText("");
                 if(commentTitle != null && !commentTitle.equalsIgnoreCase("")){
-                    DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("comments");
+                    DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("comments")
+                            .child(categoryId).child(topicId);
                     String commentId = dbRef.push().getKey();
                     //String topicId;
                     //String categoryId;
@@ -101,6 +102,7 @@ public class CommentDisplay extends AppCompatActivity {
         });
 
         Query query = FirebaseDatabase.getInstance().getReference("comments")
+                .child(categoryId).child(topicId)
                 .orderByChild("topicId").equalTo(topicId);
         query.addValueEventListener(new ValueEventListener() {
             @Override

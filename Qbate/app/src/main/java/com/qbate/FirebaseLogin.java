@@ -91,6 +91,7 @@ public class FirebaseLogin extends AppCompatActivity {
 
             //starting Activity
             startActivity(intent);
+            finish();
             }
         }
 
@@ -125,6 +126,7 @@ public class FirebaseLogin extends AppCompatActivity {
 
             //starting activity
             startActivity(intent);
+            finish();
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.

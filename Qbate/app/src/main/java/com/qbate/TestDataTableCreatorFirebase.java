@@ -20,12 +20,12 @@ public class TestDataTableCreatorFirebase {
             String id = dbRef.push().getKey();
             CategoryItem obj = new CategoryItem(id,cName);
             dbRef.child(id).setValue(obj);
-            creatingTopicsTable(id,cName);
+            //creatingTopicsTable(id,cName); //for Dummy Topics
         }
     }
 
     static void creatingTopicsTable(String categoryId,String categoryName){
-        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("topics");
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("topics").child(categoryId);
         for(int i=1;i<=10;i++){
             String topicId = dbRef.push().getKey();
             long timestamp = Calendar.getInstance().getTimeInMillis();
@@ -39,12 +39,19 @@ public class TestDataTableCreatorFirebase {
         }
     }
 
-    static void addTopic(String categoryId,String categoryName){
-
+    static void addTopic(String categoryId,String topicTitle){
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("topics").child(categoryId);
+        String topicId = dbRef.push().getKey();
+        long timestamp = Calendar.getInstance().getTimeInMillis();
+        //String topicTitle = "Dummy Topic on Category " + categoryName + " with topic Id :" + topicId;
+        String topicCategoryId = categoryId;
+        TopicItem topicItem = new TopicItem(topicId, topicCategoryId, topicTitle, timestamp, 0, 0, 0);
+        Log.d("testing","" + topicId + " " + " " + topicCategoryId + " " + topicTitle + " " + timestamp + " 0 0 0");
+        dbRef.child(topicId).setValue(topicItem);
     }
 
     static void createCommentsTable(String topicId,String categoryId){
-        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("comments");
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("comments").child(categoryId).child(topicId);
         for(int i=1;i<=10;i++){
             String commentId = dbRef.push().getKey();
             //String topicId;

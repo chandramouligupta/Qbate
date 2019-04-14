@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class TopicsDisplay extends AppCompatActivity {
+public class TopicsDisplay extends AppCompatActivity implements AddTopicDialogFragment.InputTopicDetails {
 
     private String categoryId;
     private String categoryName;
@@ -72,7 +72,7 @@ public class TopicsDisplay extends AppCompatActivity {
         topicsList = new ArrayList<TopicItem>();
 
 
-        Query query = FirebaseDatabase.getInstance().getReference("topics")
+        Query query = FirebaseDatabase.getInstance().getReference("topics").child(categoryId)
                 .orderByChild("topicCategoryId").equalTo(categoryId);
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -123,4 +123,9 @@ public class TopicsDisplay extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void getInputTopicTitle(String inputTopicTitle) {
+        Log.d("testing","In Topic Display:" + inputTopicTitle);
+        TestDataTableCreatorFirebase.addTopic(categoryId,inputTopicTitle);
+    }
 }

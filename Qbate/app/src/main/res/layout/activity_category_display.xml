@@ -32,6 +32,8 @@
         android:dividerHeight="4sp"
         android:divider="@color/white"
         android:focusable="true"
+        android:transcriptMode="alwaysScroll"
+        android:stackFromBottom="true"
         />
 
 </android.support.constraint.ConstraintLayout>

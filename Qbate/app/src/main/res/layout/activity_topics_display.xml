@@ -25,6 +25,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:dividerHeight="8sp"
+        android:transcriptMode="alwaysScroll"
         android:divider="@color/white"
         />
 
