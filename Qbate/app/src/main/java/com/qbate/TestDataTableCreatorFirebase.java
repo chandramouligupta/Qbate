@@ -39,6 +39,10 @@ public class TestDataTableCreatorFirebase {
         }
     }
 
+    static void addTopic(String categoryId,String categoryName){
+
+    }
+
     static void createCommentsTable(String topicId,String categoryId){
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("comments");
         for(int i=1;i<=10;i++){
@@ -57,4 +61,5 @@ public class TestDataTableCreatorFirebase {
             dbRef.child(commentId).setValue(ci);
         }
     }
+
 }
