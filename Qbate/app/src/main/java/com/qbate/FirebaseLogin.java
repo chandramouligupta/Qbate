@@ -3,6 +3,8 @@ package com.qbate;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +21,12 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
 public class FirebaseLogin extends AppCompatActivity {
@@ -29,6 +37,9 @@ public class FirebaseLogin extends AppCompatActivity {
     private Button logoutButton;
     private GoogleSignInClient mGoogleSignInClient;
     private ProgressBar progressBar;
+
+    final private DatabaseReference usersTableRef = FirebaseDatabase.getInstance().getReference("users");
+    final private Query query = FirebaseDatabase.getInstance().getReference("users");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +86,7 @@ public class FirebaseLogin extends AppCompatActivity {
         super.onStart();
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        final GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if(account != null){
             Toast.makeText(this,"Sign In to google Account " + account.getEmail(),Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, CategoryDisplay.class);
@@ -89,6 +100,34 @@ public class FirebaseLogin extends AppCompatActivity {
             prefsEditor.putString("googleSignInObject", json);
             prefsEditor.commit();
 
+            //checking if data is already stored
+            Query result = query.orderByChild("email").equalTo(account.getEmail());
+            result.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.getChildrenCount() > 0){
+                        //user data is already present
+                        for(DataSnapshot item:dataSnapshot.getChildren()){
+                            User user = item.getValue(User.class);
+                            Log.d("testing2","OnStart:User Already present:"+"userid:" + user.getUserid() + " email:" + user.getEmail());
+                            PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("USERIDKEY", user.getUserid()).apply();
+                        }
+                    }else{
+                        //user data is not present
+                        String userid = usersTableRef.push().getKey();
+                        String email = account.getEmail();
+                        usersTableRef.child(userid).setValue(new User(userid,email));
+                        Log.d("testing2","onStart:User created:"+"userid:" + userid + " email:" + email);
+                        //saving useridKey to a shared preference will be used at comments like/dislike/irrelevant information
+                        PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("USERIDKEY", userid).apply();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
             //starting Activity
             startActivity(intent);
             finish();
@@ -111,7 +150,7 @@ public class FirebaseLogin extends AppCompatActivity {
 
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            final GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             Toast.makeText(this,"Sign In to google Account " + account.getEmail(),Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, CategoryDisplay.class);
             //intent.putExtra("signInObject",account);
@@ -123,6 +162,35 @@ public class FirebaseLogin extends AppCompatActivity {
             String json = gson.toJson(account);
             prefsEditor.putString("googleSignInObject", json);
             prefsEditor.commit();
+
+            //checking if data is already stored
+            Query result = query.orderByChild("email").equalTo(account.getEmail());
+            result.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.getChildrenCount() > 0){
+                        //user data is already present
+                        for(DataSnapshot item:dataSnapshot.getChildren()){
+                            User user = item.getValue(User.class);
+                            Log.d("testing2","HandleSignInResult:User Already present:"+"userid:" + user.getUserid() + " email:" + user.getEmail());
+                            PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("USERIDKEY", user.getUserid()).apply();
+                        }
+                    }else{
+                        //user data is not present
+                        String userid = usersTableRef.push().getKey();
+                        String email = account.getEmail();
+                        usersTableRef.child(userid).setValue(new User(userid,email));
+                        Log.d("testing2","handleSignINResult:User created:"+"userid:" + userid + " email:" + email);
+                        //saving useridKey to a shared preference will be used at comments like/dislike/irrelevant information
+                        PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("USERIDKEY", userid).apply();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
 
             //starting activity
             startActivity(intent);

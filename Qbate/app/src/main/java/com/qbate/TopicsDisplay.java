@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -55,6 +56,11 @@ public class TopicsDisplay extends AppCompatActivity implements AddTopicDialogFr
         setContentView(R.layout.activity_topics_display);
         categoryId = getIntent().getStringExtra("categoryId");
         categoryName = getIntent().getStringExtra("categoryName");
+
+        /*
+        String userid = PreferenceManager.getDefaultSharedPreferences(this).getString("USERIDKEY", "defaultStringIfNothingFound")PreferenceManager.getDefaultSharedPreferences(this).getString("USERIDKEY", "defaultStringIfNothingFound");
+        Log.d("testing2", userid);
+        */
 
         //googleSignInAccount = (GoogleSignInAccount) getIntent().getSerializableExtra("signInObject");
         SharedPreferences mPrefs = getPreferences(MODE_PRIVATE);

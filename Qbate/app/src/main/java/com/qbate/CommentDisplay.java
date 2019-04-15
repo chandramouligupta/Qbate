@@ -117,7 +117,7 @@ public class CommentDisplay extends AppCompatActivity {
                 commentsItemList.clear();
                 for(DataSnapshot item:dataSnapshot.getChildren()){
                     CommentItem ci = item.getValue(CommentItem.class);
-                    Log.d("testing20",ci.getCategoryId() + " " + ci.getTopicId() + " " + ci.getCommentTitle() + " " + ci.getPhotoUrl());
+                    Log.d("testing",ci.getCategoryId() + " " + ci.getTopicId() + " " + ci.getCommentTitle() + " " + ci.getPhotoUrl());
                     commentsItemList.add(ci);
                 }
                 commentListAdapter = new CommentListAdapter(commentsDisplayContext,commentsItemList);
