@@ -4,6 +4,7 @@ import android.app.DownloadManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -89,11 +90,9 @@ public class CommentDisplay extends AppCompatActivity {
                     String commentId = dbRef.push().getKey();
                     //String topicId;
                     //String categoryId;
-                    int upvotes = 0;
-                    int downvotes = 0;
-                    int irrelevantCount = 0;
                     String username = GoogleSignIn.getLastSignedInAccount(commentsDisplayContext).getDisplayName();
-                    String userId =  GoogleSignIn.getLastSignedInAccount(commentsDisplayContext).getEmail();
+                    String creatorId = PreferenceManager.getDefaultSharedPreferences(TopicsDisplay.topicDisplayContext).getString("USERIDKEY", "defaultStringIfNothingFound");
+                    String email =  GoogleSignIn.getLastSignedInAccount(commentsDisplayContext).getEmail();
                     long timestamp = Calendar.getInstance().getTimeInMillis();
                     Uri url = GoogleSignIn.getLastSignedInAccount(commentsDisplayContext).getPhotoUrl();
                     String myPhoto = null;
@@ -101,8 +100,8 @@ public class CommentDisplay extends AppCompatActivity {
                         myPhoto = url.toString();
                     else
                         myPhoto = "NO_PROFILE_PIC";
-                    CommentItem ci = new CommentItem(commentId,topicId,categoryId,upvotes,
-                            downvotes,irrelevantCount,username,userId,timestamp,myPhoto,commentTitle);
+                    CommentItem ci = new CommentItem(commentId,topicId,categoryId, username,
+                            creatorId, email, timestamp, myPhoto, commentTitle);
                     dbRef.child(commentId).setValue(ci);
                 }
             }

@@ -1,5 +1,6 @@
 package com.qbate;
 
+import android.preference.PreferenceManager;
 import android.provider.CalendarContract;
 import android.util.Log;
 
@@ -24,16 +25,16 @@ public class TestDataTableCreatorFirebase {
         }
     }
 
-    static void creatingTopicsTable(String categoryId,String categoryName){
+    static void creatingTopicsTable(String categoryId){
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("topics").child(categoryId);
         for(int i=1;i<=10;i++){
             String topicId = dbRef.push().getKey();
             long timestamp = Calendar.getInstance().getTimeInMillis();
-            String topicTitle = "Dummy Topic on Category " + categoryName + " with topic Id :" + topicId;
+            String topicTitle = "Dummy Topic with topic Id :" + topicId;
             String topicCategoryId = categoryId;
-
-            TopicItem topicItem = new TopicItem(topicId, topicCategoryId, topicTitle, timestamp, 0, 0, 0);
-            Log.d("testing","" + topicId + " " + " " + topicCategoryId + " " + topicTitle + " " + timestamp + " 0 0 0");
+            String creatorId = PreferenceManager.getDefaultSharedPreferences(TopicsDisplay.topicDisplayContext).getString("USERIDKEY", "defaultStringIfNothingFound");
+            TopicItem topicItem = new TopicItem(topicId, topicCategoryId, topicTitle, timestamp, creatorId);
+            Log.d("testing","" + topicId + " " + " " + topicCategoryId + " " + topicTitle + " " + timestamp + " Creator" + topicCategoryId);
             dbRef.child(topicId).setValue(topicItem);
             createCommentsTable(topicId,categoryId);
         }
@@ -43,10 +44,10 @@ public class TestDataTableCreatorFirebase {
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("topics").child(categoryId);
         String topicId = dbRef.push().getKey();
         long timestamp = Calendar.getInstance().getTimeInMillis();
-        //String topicTitle = "Dummy Topic on Category " + categoryName + " with topic Id :" + topicId;
+        String creatorId = PreferenceManager.getDefaultSharedPreferences(TopicsDisplay.topicDisplayContext).getString("USERIDKEY", "defaultStringIfNothingFound");
         String topicCategoryId = categoryId;
-        TopicItem topicItem = new TopicItem(topicId, topicCategoryId, topicTitle, timestamp, 0, 0, 0);
-        Log.d("testing","" + topicId + " " + " " + topicCategoryId + " " + topicTitle + " " + timestamp + " 0 0 0");
+        TopicItem topicItem = new TopicItem(topicId, topicCategoryId, topicTitle, timestamp, creatorId);
+        Log.d("testing","" + topicId + " " + " " + topicCategoryId + " " + topicTitle + " " + timestamp + " Creator" + topicCategoryId);
         dbRef.child(topicId).setValue(topicItem);
     }
 
@@ -56,16 +57,14 @@ public class TestDataTableCreatorFirebase {
             String commentId = dbRef.push().getKey();
             //String topicId;
             //String categoryId;
-            int upvotes = 0;
-            int downvotes = 0;
-            int irrelevantCount = 0;
             String username = "testing";
-            String userId = "testing";
+            String creatorId = "testing";
+            String email = "testing@email.com";
             long timestamp = Calendar.getInstance().getTimeInMillis();
             String photoUrl = null;
             String commentTitle = "Comment " + i;
-            CommentItem ci = new CommentItem(commentId,topicId,categoryId,upvotes,downvotes,
-                        irrelevantCount,username,userId,timestamp,photoUrl,commentTitle);
+            CommentItem ci = new CommentItem(commentId,topicId,categoryId,username,
+                    creatorId,email,timestamp,photoUrl,commentTitle);
             dbRef.child(commentId).setValue(ci);
         }
     }

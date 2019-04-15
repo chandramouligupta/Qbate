@@ -10,21 +10,17 @@ public class TopicItem {
     private String topicCategoryId;
     private String topicTitle;
     private long timestamp;
-    private int upVotes;
-    private int downVotes;
-    private int irrelevantCount;
+    private String creator; //user id that created this topic
 
     public TopicItem() {
     }
 
-    public TopicItem(String topicId, String topicCategoryId, String topicTitle, long timestamp, int upVotes, int downVotes, int irrelevantCount) {
+    public TopicItem(String topicId, String topicCategoryId, String topicTitle, long timestamp, String creator) {
         this.topicId = topicId;
         this.topicCategoryId = topicCategoryId;
         this.topicTitle = topicTitle;
         this.timestamp = timestamp;
-        this.upVotes = upVotes;
-        this.downVotes = downVotes;
-        this.irrelevantCount = irrelevantCount;
+        this.creator = creator;
     }
 
     public String getTopicId() {
@@ -59,27 +55,11 @@ public class TopicItem {
         this.timestamp = timestamp;
     }
 
-    public int getUpVotes() {
-        return upVotes;
+    public String getCreator() {
+        return creator;
     }
 
-    public void setUpVotes(int upVotes) {
-        this.upVotes = upVotes;
-    }
-
-    public int getDownVotes() {
-        return downVotes;
-    }
-
-    public void setDownVotes(int downVotes) {
-        this.downVotes = downVotes;
-    }
-
-    public int getIrrelevantCount() {
-        return irrelevantCount;
-    }
-
-    public void setIrrelevantCount(int irrelevantCount) {
-        this.irrelevantCount = irrelevantCount;
+    public void setCreator(String creator) {
+        this.creator = creator;
     }
 }

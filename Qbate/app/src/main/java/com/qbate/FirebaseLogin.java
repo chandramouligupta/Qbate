@@ -38,6 +38,7 @@ public class FirebaseLogin extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     private ProgressBar progressBar;
 
+    //for firebase database
     final private DatabaseReference usersTableRef = FirebaseDatabase.getInstance().getReference("users");
     final private Query query = FirebaseDatabase.getInstance().getReference("users");
 
@@ -100,7 +101,7 @@ public class FirebaseLogin extends AppCompatActivity {
             prefsEditor.putString("googleSignInObject", json);
             prefsEditor.commit();
 
-            //checking if data is already stored
+            //checking if data is already stored in firebase
             Query result = query.orderByChild("email").equalTo(account.getEmail());
             result.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -163,7 +164,7 @@ public class FirebaseLogin extends AppCompatActivity {
             prefsEditor.putString("googleSignInObject", json);
             prefsEditor.commit();
 
-            //checking if data is already stored
+            //checking if data is already stored in firebase
             Query result = query.orderByChild("email").equalTo(account.getEmail());
             result.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -176,7 +177,7 @@ public class FirebaseLogin extends AppCompatActivity {
                             PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("USERIDKEY", user.getUserid()).apply();
                         }
                     }else{
-                        //user data is not present
+                        //user data is not present in firebase
                         String userid = usersTableRef.push().getKey();
                         String email = account.getEmail();
                         usersTableRef.child(userid).setValue(new User(userid,email));

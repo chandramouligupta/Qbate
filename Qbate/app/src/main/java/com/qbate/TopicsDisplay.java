@@ -40,12 +40,13 @@ import java.util.Date;
 
 public class TopicsDisplay extends AppCompatActivity implements AddTopicDialogFragment.InputTopicDetails {
 
+    protected static Context topicDisplayContext;
+
     private String categoryId;
     private String categoryName;
     private Toolbar topicToolbar;
     private ListView listView;
     private ArrayList<TopicItem> topicsList;
-    private Context topicDisplayContext;
     private TopicListAdapter topicsListAdapter;
     private GoogleSignInAccount googleSignInAccount;
 

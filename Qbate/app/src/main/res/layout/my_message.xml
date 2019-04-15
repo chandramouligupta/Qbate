@@ -35,7 +35,35 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/my_upvote_downvote"
+        android:id="@+id/my_upvote"
+        android:fontFamily="@font/heebo_light"
+        android:layout_below="@+id/my_comment_time"
+        android:layout_toLeftOf="@id/my_downvote"
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="16dp"
+        android:elevation="2dp"
+        android:textSize="8dp"
+        android:text="Upvote:0"
+        android:visibility="visible"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/my_downvote"
+        android:fontFamily="@font/heebo_light"
+        android:layout_below="@+id/my_comment_time"
+        android:layout_toLeftOf="@id/my_irrelevant"
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="16dp"
+        android:elevation="2dp"
+        android:textSize="8dp"
+        android:text="Downvote:0"
+        android:visibility="visible"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/my_irrelevant"
         android:fontFamily="@font/heebo_light"
         android:layout_below="@+id/my_comment_time"
         android:layout_alignParentRight="true"
@@ -43,7 +71,7 @@
         android:paddingHorizontal="16dp"
         android:elevation="2dp"
         android:textSize="8dp"
-        android:text="@string/upvotes_downvote"
-        android:visibility="gone"/>
+        android:text="Irrelevant:0"
+        android:visibility="visible"/>
 
 </RelativeLayout>
