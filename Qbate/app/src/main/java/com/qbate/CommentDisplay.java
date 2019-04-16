@@ -32,7 +32,7 @@ import java.util.Calendar;
 
 public class CommentDisplay extends AppCompatActivity {
 
-    private Context commentsDisplayContext;
+    protected static Context commentsDisplayContext;
     private String categoryId;
     private String topicId;
     private String topicTitle;

@@ -1,8 +1,11 @@
 package com.qbate;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
@@ -87,7 +90,7 @@ public class CommentListAdapter extends BaseAdapter {
         final TextView upVoteTextView;
         final TextView downVoteTextView;
         final TextView irrelevantTextView;
-        GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(context);
+        final GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(context);
         Log.d("testing",googleSignInAccount.getEmail());
         View v;
         if(email.equalsIgnoreCase(googleSignInAccount.getEmail())) {
@@ -178,8 +181,9 @@ public class CommentListAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
                     //i.e inserting an item in dislike table with key as current USERKEY
-                    ILDItem obj = new ILDItem(email);
+                    ILDItem obj = new ILDItem(googleSignInAccount.getEmail());
                     dislikesTableRef.child(commentsItemList.get(position).getCommentId()).child(creatorId).setValue(obj);
+                    like.setTextColor(Color.parseColor("#4267b2"));
                     like.setText("Unliked");
                     dislike.setVisibility(View.INVISIBLE);
                     irrelevant.setVisibility(View.INVISIBLE);
@@ -189,8 +193,9 @@ public class CommentListAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
                     //i.e insetring an item in irrelevant table with key as current USERKEY
-                    ILDItem obj = new ILDItem(email);
+                    ILDItem obj = new ILDItem(googleSignInAccount.getEmail());
                     irrelevantTableRef.child(commentsItemList.get(position).getCommentId()).child(creatorId).setValue(obj);
+                    like.setTextColor(Color.parseColor("#4267b2"));
                     like.setText("Irrelevant");
                     dislike.setVisibility(View.INVISIBLE);
                     irrelevant.setVisibility(View.INVISIBLE);
@@ -205,25 +210,29 @@ public class CommentListAdapter extends BaseAdapter {
                         //i.e User has already disliked this but now he changed his mind and want
                         // set it back to neutral
                         dislikesTableRef.child(commentsItemList.get(position).getCommentId()).child(creatorId).removeValue();
+                        like.setTextColor(Color.parseColor("#231F20"));
                         like.setText("Like");
                         dislike.setVisibility(View.VISIBLE);
                         irrelevant.setVisibility(View.VISIBLE);
                     }else if("Irrelevant".equalsIgnoreCase(like.getText().toString())){
                         //i.e user has  marked it irrelevant but now making it neutral
                         irrelevantTableRef.child(commentsItemList.get(position).getCommentId()).child(creatorId).removeValue();
+                        like.setTextColor(Color.parseColor("#231F20"));
                         like.setText("Like");
                         dislike.setVisibility(View.VISIBLE);
                         irrelevant.setVisibility(View.VISIBLE);
                     }else if("Liked".equalsIgnoreCase(like.getText().toString())) {
                         // i.e User has already Liked it but now he maiy be setting it to neutral
                         likesTableRef.child(commentsItemList.get(position).getCommentId()).child(creatorId).removeValue();
+                        like.setTextColor(Color.parseColor("#231F20"));
                         like.setText("Like");
                         dislike.setVisibility(View.VISIBLE);
                         irrelevant.setVisibility(View.VISIBLE);
                     }else{
                         //i.e User is clicking on like button
-                        ILDItem obj = new ILDItem(email);
+                        ILDItem obj = new ILDItem(googleSignInAccount.getEmail());
                         like.setText("Liked");
+                        like.setTextColor(Color.parseColor("#4267b2"));
                         likesTableRef.child(commentsItemList.get(position).getCommentId()).child(creatorId).setValue(obj);
                         dislike.setVisibility(View.INVISIBLE);
                         irrelevant.setVisibility(View.INVISIBLE);
