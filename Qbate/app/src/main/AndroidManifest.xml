@@ -12,10 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".CommentDisplay"></activity>
-        <activity android:name=".TopicItem" />
+        <activity android:name=".CategoryDisplay" />
+        <activity android:name=".ReplyCommentDisplay" />
+        <activity android:name=".CommentDisplay" />
         <activity android:name=".TopicsDisplay" />
-        <activity android:name=".CategoryItem" />
         <activity android:name=".Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
