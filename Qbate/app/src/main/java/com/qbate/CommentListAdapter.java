@@ -108,7 +108,7 @@ public class CommentListAdapter extends BaseAdapter {
                     .addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if(dataSnapshot == null){
+                            if(!dataSnapshot.exists()){
                                 //No Replies till now
                             }else{
                                 viewAllReply.setVisibility(View.VISIBLE);
